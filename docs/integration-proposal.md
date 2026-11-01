@@ -53,7 +53,11 @@ From the published article and the repository README:
 
 **We have not read the implementation source.** Our understanding comes from the public article and README only.
 
-In earlier discussions we referred to an "Effects queue" with transaction-enqueue / post-commit delivery semantics as the precise insertion anchor. **That mechanism is not described in the public article.** It should be treated as a **hypothesis to be validated against the source**, not as an established fact about the prototype.
+**Terminology correction (2026-11-02).** In earlier drafts we used the phrase **"Effects queue"** (transaction-enqueue / post-commit delivery) as the precise insertion anchor. **That term does not appear in the prototype's own materials, and we withdraw it.** Secondary write-ups of the prototype's architecture docs describe the mechanism instead as a **durable outbox backed by a single SQLite store, with replies queued and sent after the database commit**. We have therefore restated the anchor as:
+
+> **before the outbox enqueues** — i.e. before the SQLite transaction commits
+
+This is a stronger position than our earlier one: the structural claim in §3.3 now has supporting description rather than none. **But it is still second-hand** — it comes from third-party write-ups, not from the repository's own architecture docs, which we have not yet opened. It must be confirmed there before being asserted as fact.
 
 We are flagging this ourselves rather than quietly dropping it, because the insertion point is the load-bearing claim of this proposal.
 
