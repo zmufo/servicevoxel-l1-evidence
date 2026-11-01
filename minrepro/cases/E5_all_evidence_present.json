@@ -1,0 +1,14 @@
+{
+  "id": "E5",
+  "name": "all_evidence_present",
+  "expect": "ALLOW",
+  "description": "Positive control. Report exists, is on the fix commit, has 128 non-zero cases, zero failures, CI green. This case exists to prove the gate does not simply block everything.",
+  "worker_report": "Fixed issue-142. All 128 unit tests passed, CI green.",
+  "evidence": {
+    "test_report": "junit-release.xml",
+    "report_commit": "b7c1f9a",
+    "total": 128,
+    "failed": 0,
+    "ci_status": "green"
+  }
+}
