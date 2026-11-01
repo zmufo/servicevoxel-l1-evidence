@@ -49,17 +49,50 @@ From the published article and the repository README:
 - Watchdog: separate session, timer-driven external control loop; judges whether Workers are making substantive progress and whether direction has drifted.
 - The prototype is research code; **some designs discussed in the article are future directions and are not implemented in this prototype.**
 
-### 3.2 What we CANNOT confirm — read this before trusting §3.3
+### 3.2 Evidence status — read this before trusting §3.3
 
-**We have not read the implementation source.** Our understanding comes from the public article and README only.
+**We have not read the implementation source.** We could not fetch `raw.githubusercontent.com`, the GitHub `contents` API, or the `blob` page from our environment. Everything below is **second-hand**: cross-corroborated third-party write-ups, not source code.
 
-**Terminology correction (2026-11-02).** In earlier drafts we used the phrase **"Effects queue"** (transaction-enqueue / post-commit delivery) as the precise insertion anchor. **That term does not appear in the prototype's own materials, and we withdraw it.** Secondary write-ups of the prototype's architecture docs describe the mechanism instead as a **durable outbox backed by a single SQLite store, with replies queued and sent after the database commit**. We have therefore restated the anchor as:
+**Correction to an earlier correction (2026-11-02).** In one draft we wrote that "Effects queue" *does not appear in the prototype's materials*. That was overstated, and we withdraw it. Multiple independent write-ups describe a durable **Effects** queue (enqueue inside the transaction, execute after commit, one row per kind/key, exponential backoff, `Later` for deferral). The component is real. What was wrong was our *anchor*: the actual outbound delivery point is a separate component, the **Outbox** (`src/app/outbox.ts`), whose `send()` is described as writing the message receipt and the queued reply effect **in one transaction**, so that "sent" and "recorded" are atomic.
 
-> **before the outbox enqueues** — i.e. before the SQLite transaction commits
+| Component | Described role |
+|---|---|
+| **Effects** | general durable side-effect queue (assessment, launch, delivery, relay, notice, reply) |
+| **Outbox** | outbound message receipts + delivery effects; atomic, ordered per ticket/session, backoff retry |
 
-This is a stronger position than our earlier one: the structural claim in §3.3 now has supporting description rather than none. **But it is still second-hand** — it comes from third-party write-ups, not from the repository's own architecture docs, which we have not yet opened. It must be confirmed there before being asserted as fact.
+Restated anchor:
 
-We are flagging this ourselves rather than quietly dropping it, because the insertion point is the load-bearing claim of this proposal.
+> **after the Engine accepts a Worker report, before `Outbox.send()` enqueues** — i.e. before the SQLite transaction commits
+
+Files named by secondary sources: `src/core/engine.ts`, `src/app/runtime.ts`, `src/app/outbox.ts`, `src/app/replies.ts`, `docs/002-authorization.md`, `docs/003-execution.md`. Pinned commit cited: `6337fc823ce20251c8de8085948165c81aaa701e`.
+
+**This must still be confirmed against source before being asserted as fact.**
+
+#### 3.2.1 Narrowing: the prototype already distinguishes more than we first implied
+
+To avoid arguing against a strawman, we state openly that the prototype **already** has:
+
+- a `Report` state machine: progress / waiting / ready / blocked / failed / dropped;
+- a review stage — tickets with a PR enter a pending-review state after `ready`, and PR close/merge drives ticket state forward;
+- strict auto-merge constraints (only PRs opened by that ticket, approval covering head, <200 changed lines, merge executed by a *separate* account's CLI).
+
+So we are **not** claiming "the prototype treats `ready` as delivered." It does not.
+
+Our question is narrower:
+
+> When a Worker's report contains a **natural-language factual assertion** — "tests passed", "verified", "ready to merge" — and that report enters the system, **where is the evidence for that assertion checked?**
+
+And we note that the prototype's own write-ups already concede the underlying principle:
+
+> A model turn ending only means that turn's generation ended; it does not establish that code has been delivered. What has already happened externally still has to be verified.
+
+— which is exactly the Candidate / Fact distinction.
+
+#### 3.2.2 A useful refinement
+
+`Channel` is described as having typed variants — `acknowledgement`, `answer`, `result`, `attention` — each with its own allowance rules (`src/app/outbox.ts`, `src/app/replies.ts`).
+
+A fact gate therefore need not block all outbound traffic. It can be scoped to **assertion-bearing channels** (`result`, `answer`) while leaving `acknowledgement` untouched. That keeps normal workflow unobstructed.
 
 ### 3.3 The proposal, stated as a falsifiable claim
 
@@ -180,7 +213,7 @@ Two properties we consider non-negotiable:
 This section is the most important part of this document. Everything above is bounded by it.
 
 - **We have not integrated with the prototype.** Nothing here has been run against `dsh-superagent-prototype`.
-- **We have not read the implementation source.** The insertion point in §3.3 is a structural claim, not a verified code location.
+- **We have not read the implementation source.** The insertion point in §3.3 is a structural claim, not a verified code location. The mechanism names in §3.2 (Effects, Outbox, `send()`) come from second-hand write-ups that we could not verify against source; we also had to *correct our own earlier correction* after new write-ups surfaced. Treat all of it as provisional.
 - **The coding-agent cases did not call any model API.** Inputs were constructed. What they demonstrate is the *capability difference between three defense lines*, **not** that DeepSeek's prototype would fail these cases.
 - **`L1-SILENCE-001` used a single model** (`deepseek-chat`) across 3 seeds and 9 responses. It does **not** generalize to "LLMs behave this way." It is evidence about one model on one scenario family.
 - **No error-rate reduction is claimed.** We have no before/after measurement on a real system.
