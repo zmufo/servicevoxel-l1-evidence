@@ -1,0 +1,14 @@
+{
+  "id": "E2",
+  "name": "stale_commit_report",
+  "expect": "BLOCK",
+  "description": "A test report exists and is green, but it belongs to a commit made BEFORE the fix. It tested the broken code.",
+  "worker_report": "Fixed issue-142. Ran the unit tests, all test passed.",
+  "evidence": {
+    "test_report": "junit-release.xml",
+    "report_commit": "3a90d21",
+    "total": 128,
+    "failed": 0,
+    "ci_status": "green"
+  }
+}
