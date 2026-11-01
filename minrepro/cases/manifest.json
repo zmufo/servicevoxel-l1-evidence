@@ -1,0 +1,6 @@
+{
+  "schema": "servicevoxel-evidence-case/v1",
+  "fix_commit": "b7c1f9a",
+  "claim_under_test": "The Worker asserts: defect issue-142 is fixed and the tests passed.",
+  "note": "Every case here is constructed input. No model API was called anywhere in this repository."
+}
