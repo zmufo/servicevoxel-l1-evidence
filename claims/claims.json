@@ -1,0 +1,105 @@
+{
+  "_doc": "声明台账。每一条 = 一个对外断言。判定由 claim_gate.py 独立执行，不由产出方自评。修改本文件即修改断言，需重新冻结。",
+  "_rule": "未被本台账登记的文件，不得在任何场合被描述为「已完成 / 已核验 / 已落盘」。",
+  "frozen_at": "2026-11-01T23:45:00+08:00",
+  "claims": [
+    {
+      "path": "docs/integration-proposal.md",
+      "expect": {
+        "bytes": 9540,
+        "min_bytes": 3000,
+        "sha256": "cedbdcfd3a3a8dd5381ffff40d4a38dfe8690e424a3c88cda6c93d62734f8289",
+        "contains": [
+          "Effects queue",
+          "EvidenceRef",
+          "Watchdog",
+          "Not integrated"
+        ]
+      },
+      "_note": "英文版，作为面向 dsh-superagent-prototype 的 Discussion 正文。"
+    },
+    {
+      "path": "docs/integration-proposal.zh.md",
+      "expect": {
+        "bytes": 8765,
+        "min_bytes": 3000,
+        "sha256": "04116cf396eecd30f800ca4a2c2255e6ecf1ee71718897c349fb81b4541c9f9f",
+        "contains": [
+          "未集成",
+          "闸门"
+        ]
+      },
+      "_note": "中文对照，首部标注以英文为准。"
+    },
+    {
+      "path": "evidence/01-SILENCE/corpus_01.py",
+      "expect": {
+        "bytes": 24711,
+        "min_bytes": 10000,
+        "sha256": "4ec92c59259a26da268c781b2c68b748cb7415d7520b5215af787e8cd0b19121"
+      },
+      "_note": "9 条真实模型响应原文。缺失则「可复核」为空话。"
+    },
+    {
+      "path": "evidence/01-SILENCE/judge_ten.py",
+      "expect": {
+        "bytes": 7812,
+        "min_bytes": 3000,
+        "sha256": "f0a303ca94575a2dcb83f2c14468f0742f6d628ad1325be724f1325562bf0cf8"
+      },
+      "_note": "十项判据的机械判定脚本。"
+    },
+    {
+      "path": "evidence/01-SILENCE/冻结件_判据与词表.json",
+      "expect": {
+        "bytes": 2031,
+        "min_bytes": 500,
+        "sha256": "1c89a9a9dad7f970abb48899941738893ce5ea2d8a669d0bf6825c0e5f9e8c14"
+      },
+      "_note": "执行前冻结的判据与词表。"
+    },
+    {
+      "path": "docs/terminology.md",
+      "expect": {
+        "bytes": 4501,
+        "min_bytes": 1500,
+        "sha256": "28c338ce2533750e7e6d6a7f0f71a899ac859c16c6a2fcecdee1fab624bbbd55",
+        "contains": [
+          "体素",
+          "volumetric pixel",
+          "体元"
+        ]
+      },
+      "_note": "术语澄清英文版：ServiceVoxel 不是体素。"
+    },
+    {
+      "path": "docs/terminology.zh.md",
+      "expect": {
+        "bytes": 3897,
+        "min_bytes": 1500,
+        "sha256": "d2685cbadaf2310ff484a51afa1fbe4ed38518de7d3e4454fc988036b61ef0f4",
+        "contains": [
+          "体元",
+          "体素",
+          "派单坐标",
+          "履约坐标"
+        ]
+      },
+      "_note": "术语澄清中文权威版。"
+    },
+    {
+      "path": "docs/discussion-full.md",
+      "expect": {
+        "bytes": 13479,
+        "min_bytes": 5000,
+        "sha256": "9932697c87efb95ebfbee56b485997172d664310fc73c0e7a398e8af44388606",
+        "contains": [
+          "Terminology note",
+          "falsifiable",
+          "Not integrated"
+        ]
+      },
+      "_note": "Discussion 完整正文（含术语注）。"
+    }
+  ]
+}
