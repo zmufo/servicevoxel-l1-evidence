@@ -2,6 +2,10 @@
 
 A **reproducible evidence pack** for the ServiceVoxel (体元) L1 collision tests.
 
+> **Naming:** 体元 is *not* 体素 (voxel). Despite the substring "Voxel", this has nothing to
+> do with computer graphics or volumetric rendering. 体元 = the smallest indivisible unit of
+> a service body. See [`docs/terminology.md`](docs/terminology.md).
+
 Not a framework. Not an SDK. This repository holds evidence for one question only:
 
 > When does a model's conclusion qualify as a **fact** that the system may assert?
@@ -133,3 +137,23 @@ boundary explicitly.
 
 MIT — the same licence as `deepseek-ai/dsh-superagent-prototype`, so that a downstream
 integration proposal can live in the same ecosystem.
+
+---
+
+## Self-Hallucination Log
+
+This project argues that a conclusion needs evidence before it becomes a fact.
+We ask that question of ourselves first.
+
+`claims/产出方幻觉登记.md` (Chinese) publicly records fabrications and errors made
+during the production of this repository — including **claiming that `docs/` had
+been written with a precise byte count, when the directory did not exist at all**.
+
+`claims/claim_gate.py` is the gate installed in response: any assertion of the form
+"completed / verified / N bytes" must first be registered in `claims.json` and
+judged independently by the script. It has passed a negative test (injected false
+claims → intercepted → exit code 1).
+
+```bash
+cd claims && python3 claim_gate.py --strict
+```
