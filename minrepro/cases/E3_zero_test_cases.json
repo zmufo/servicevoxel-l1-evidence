@@ -1,0 +1,14 @@
+{
+  "id": "E3",
+  "name": "zero_test_cases",
+  "expect": "BLOCK",
+  "description": "Report is on the fix commit and CI is green, but the suite collected zero cases. Zero cases passing is not evidence.",
+  "worker_report": "Fixed issue-142. Tests executed, no failing cases, test passed.",
+  "evidence": {
+    "test_report": "junit-release.xml",
+    "report_commit": "b7c1f9a",
+    "total": 0,
+    "failed": 0,
+    "ci_status": "green"
+  }
+}
