@@ -3,53 +3,57 @@
 > **Why a comment, not an edit.** The original post is already public. Editing it silently would
 > make the published text differ from what readers saw, which is the same failure mode this
 > project exists to flag. Corrections go **on top**, in the open.
+>
+> **Status: prepared, NOT yet posted.** Post before the follow-up.
 
 ---
 
 ## Comment text (paste as-is)
 
-**Correction to §3.2 — terminology, and a strengthening of the claim**
+**Correction to §3.2 — including a correction to our own earlier correction**
 
-In §3.2 of the original post we wrote that the "Effects queue" mechanism we referred to is *not
-described in the public article* and should be treated as an unvalidated hypothesis.
+We need to be precise here, because we got this wrong twice.
 
-We are withdrawing that term. **"Effects queue" does not appear in the prototype's own
-materials** — we borrowed it, and using it was careless on our part.
+**1. What we originally said.** In Discussion #1 we used the phrase *"Effects queue"*
+(transaction-enqueue / post-commit delivery) as the precise insertion anchor. We borrowed that
+term; it was not something we had verified.
 
-Secondary write-ups of the prototype's architecture docs describe the mechanism as a **durable
-outbox backed by a single SQLite store, with replies queued and sent after the database
-commit**. We have therefore restated our insertion anchor as:
+**2. Our first correction was overstated.** We then wrote that the term *does not appear in the
+prototype's own materials* and withdrew it. **That went too far, and we withdraw the
+withdrawal.** Multiple independent write-ups now describe a durable **Effects** queue in the
+prototype: enqueue inside the transaction, execute after commit, one row per kind/key,
+exponential backoff, `Later` for deferral. The component appears to be real.
 
-> **before the outbox enqueues** — i.e. before the SQLite transaction commits
+What was actually wrong was our **anchor**, not the term's existence. The outbound delivery
+point is a *separate* component: the **Outbox** (`src/app/outbox.ts`), whose `send()` is
+described as writing the message receipt and the queued reply effect **in one transaction** —
+so that "sent" and "recorded" are atomic.
 
-This actually *strengthens* the structural claim in §3.3: the point we proposed (after a Worker
-produces a result, before that result becomes an external fact) now has a described mechanism
-sitting on it rather than nothing.
-
-Two caveats we want to keep visible:
-
-1. This is **second-hand**. It comes from third-party technical write-ups, not from the
-   repository's own architecture docs, which we still have not opened. We intend to read them
-   before asserting anything as fact about your codebase.
-2. We are **not** claiming you have a gap here. We are asking whether this reading is right.
-
-Corrections on either point are welcome — that is most of why we posted.
-
-— filed 2026-11-02
-
----
-
-## What this changes elsewhere
-
-| File | Change |
+| component | described role |
 |---|---|
-| `docs/integration-proposal.md` | §3.2 rewritten; term withdrawn; anchor restated |
-| `docs/integration-proposal.zh.md` | same, Chinese |
-| `docs/discussion-full.md` | **left unchanged** — it is the record of what was posted |
+| **Effects** | general durable side-effect queue |
+| **Outbox** | outbound receipts + delivery effects; atomic, ordered, retried |
 
-## What we deliberately did NOT do
+Restated anchor:
 
-- Did not edit the original Discussion post.
-- Did not quietly swap the term in already-published text.
-- Did not upgrade the claim from "hypothesis" to "confirmed" — it remains *supported by
-  second-hand description*, not by source code.
+> after the Engine accepts a Worker report, **before `Outbox.send()` enqueues**
+
+**3. We also overstated the gap.** To avoid arguing against a position nobody holds: the
+prototype already separates "result ready for review" from "collaboration finished" — there is a
+`Report` state machine and a pending-review stage for tickets carrying a PR, plus strict
+auto-merge constraints. We are **not** claiming it treats `ready` as delivered.
+
+Our question is narrower: when a Worker's report carries a **natural-language factual
+assertion** — "tests passed", "verified", "ready to merge" — where is the evidence for *that
+assertion* checked?
+
+A refinement that may make this easier to accept: `Channel` is described as typed
+(`acknowledgement`, `answer`, `result`, `attention`). A fact gate could be scoped to
+assertion-bearing channels (`result`, `answer`) and leave `acknowledgement` untouched, so normal
+workflow is not obstructed.
+
+**Limits we are keeping visible:** we could not fetch the source from our environment —
+`raw.githubusercontent.com`, the `contents` API and the `blob` page were all unreachable.
+Everything above is second-hand, from third-party write-ups. It must be confirmed against the
+repository before being treated as fact. If a maintainer tells us the anchor is wrong, we will
+say so publicly.
