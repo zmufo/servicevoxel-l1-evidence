@@ -77,6 +77,37 @@ python3 run.py   # -> C blocked 3/4, missed 1, "GATE SELF-CHECK FAILED", exit 2
 
 Verified: the checker fails loudly instead of quietly reporting a good number.
 
+## Where the gate would sit (provisional — not source-verified)
+
+We could not fetch the prototype source from our environment, so treat this as
+second-hand and provisional.
+
+Multiple independent write-ups describe two distinct components:
+
+| component | described role |
+|---|---|
+| **Effects** | durable side-effect queue: enqueue inside the transaction, execute after commit |
+| **Outbox** (`src/app/outbox.ts`) | outbound receipts + delivery effects; `send()` writes receipt and queued reply effect **in one transaction** |
+
+Our proposed anchor is therefore:
+
+> after the Engine accepts a Worker report, **before `Outbox.send()` enqueues**
+
+### We are not claiming the prototype conflates `ready` with `delivered`
+
+It does not. Write-ups describe a `Report` state machine
+(progress / waiting / ready / blocked / failed / dropped) and a pending-review
+stage for tickets with a PR.
+
+Our question is narrower: when a Worker's report carries a **natural-language
+factual assertion** — "tests passed", "verified", "ready to merge" — where is
+the evidence for *that assertion* checked?
+
+A useful refinement: `Channel` is described as typed
+(`acknowledgement`, `answer`, `result`, `attention`), each with its own
+allowance rules. A fact gate could therefore be scoped to assertion-bearing
+channels (`result`, `answer`) and leave `acknowledgement` untouched.
+
 ## What this repo does NOT claim
 
 Stated up front, because these are the limits that matter:
