@@ -6,9 +6,9 @@
   {
    "path": "docs/integration-proposal.md",
    "expect": {
-    "bytes": 10132,
+    "bytes": 12504,
     "min_bytes": 3000,
-    "sha256": "9858b2791a2af993656e4ef236c07cc8e59e5f44e65c126060cd7b3f0e3fbc62",
+    "sha256": "1526775dab1a517412512460f409a161417444d88911b0e111603d44ba2d5dd3",
     "contains": [
      "outbox",
      "EvidenceRef",
@@ -16,21 +16,21 @@
      "Not integrated"
     ]
    },
-   "_note": "英文版，Discussion 正文。2026-11-02 术语修正：撤回 Effects queue，改述为 outbox + 持久化队列（二手转述支撑，仍待源码确认）。"
+   "_note": "英文版，Discussion 正文。2026-11-02 二次修正：Effects 队列确实存在（此前\"不存在\"的判断过头，已撤回）；真正锚点改为 Outbox.send() 入队前；并收窄论点（原型已有 ready/待审区分）。全部二手，待源码确认。"
   },
   {
    "path": "docs/integration-proposal.zh.md",
    "expect": {
-    "bytes": 9275,
+    "bytes": 11561,
     "min_bytes": 3000,
-    "sha256": "366aee8b1a391e334ad2d8e141312716d969a4e5d23e8fda8c7335435f941620",
+    "sha256": "e8f0b97649e0b85a33d8ff046bc5dcace8cfa54d1591600ea1819ae391cf5c4c",
     "contains": [
      "未集成",
      "闸门",
      "outbox"
     ]
    },
-   "_note": "中文对照，首部标注以英文为准。"
+   "_note": "中文对照，同步二次修正与收窄。"
   },
   {
    "path": "evidence/01-SILENCE/corpus_01.py",
@@ -91,16 +91,16 @@
   {
    "path": "docs/discussion-full.md",
    "expect": {
-    "bytes": 13479,
+    "bytes": 16644,
     "min_bytes": 5000,
-    "sha256": "9932697c87efb95ebfbee56b485997172d664310fc73c0e7a398e8af44388606",
+    "sha256": "ebd9136517cfe65c61e2fceb1120bf53e4ca7e7f69ef05dc2f3b29d99ac88f97",
     "contains": [
      "Terminology note",
      "falsifiable",
      "Not integrated"
     ]
    },
-   "_note": "Discussion 完整正文（含术语注）。"
+   "_note": "Discussion 正文 = header + proposal。随 proposal 二次修正重拼。"
   },
   {
    "path": "/data/workspace/6_评述与台账/前沿扫描_20261102.md",
@@ -135,9 +135,9 @@
   {
    "path": "/data/workspace/5_实证与试算/L1-SILENCE-001/github/docs/discussion-correction-01.md",
    "expect": {
-    "bytes": 2395,
+    "bytes": 3091,
     "min_bytes": 1500,
-    "sha256": "984292d842406e855083b5a35c888738ac85cdd8be7f2fa44416e82c44ca310f",
+    "sha256": "a79e6b9fe9cf164416d4cf4946ca8d309b8571b0862e65b228def2691c2eda1a",
     "contains": [
      "outbox",
      "do not edit",
@@ -149,9 +149,9 @@
   {
    "path": "minrepro/README.md",
    "expect": {
-    "bytes": 4445,
+    "bytes": 5806,
     "min_bytes": 3000,
-    "sha256": "230c37a85c4f60c8b639792232ac579fd6cb048dd8e4792ffadcf75fb07ba797",
+    "sha256": "01b7d3512af672382276feef0ab133e3069c7688f50db38c7ac8b3237ee4dc68",
     "contains": [
      "blocked 1/4",
      "blocked 4/4",
@@ -159,7 +159,7 @@
      "Not integrated with any prototype"
     ]
    },
-   "_note": "最小可复现仓库（4 类编码 Agent 证据缺口），2026-11-02 新增。"
+   "_note": "最小复现说明。新增 hook 点章节（Outbox.send 之前、Channel 类型、收窄声明）。"
   },
   {
    "path": "minrepro/run.py",
@@ -229,6 +229,20 @@
     ]
    },
    "_note": "最小可复现仓库（4 类编码 Agent 证据缺口），2026-11-02 新增。"
+  },
+  {
+   "path": "docs/discussion-followup-01.md",
+   "expect": {
+    "bytes": 2449,
+    "min_bytes": 500,
+    "sha256": "def546ef2e8b5737b5101be069c9f20daab5d5613ded2ec6b564415510f992a9",
+    "contains": [
+     "Outbox",
+     "minrepro",
+     "NOT yet posted"
+    ]
+   },
+   "_note": "跟进评论草稿。已写好但状态为 NOT yet posted。#1 若 2-3 天无回应再贴。"
   }
  ]
 }
