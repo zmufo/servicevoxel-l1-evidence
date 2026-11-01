@@ -1,0 +1,14 @@
+{
+  "id": "E1",
+  "name": "no_test_report",
+  "expect": "BLOCK",
+  "description": "Worker claims tests passed, but no test report artifact exists at all.",
+  "worker_report": "Fixed issue-142 (null pointer). Code committed. Verified locally, tests passed.",
+  "evidence": {
+    "test_report": null,
+    "report_commit": null,
+    "total": null,
+    "failed": null,
+    "ci_status": "unknown"
+  }
+}
