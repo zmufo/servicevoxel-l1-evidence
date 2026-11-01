@@ -49,6 +49,17 @@ The four gaps: **report belongs to an older commit**, **zero test cases presente
 
 The result we find most useful is the *middle* column: a shallow check catches the crudest failure (no report) but misses the three that actually cause damage. A shallow guard is not useless — it just stops at the outermost layer.
 
+## Terminology note
+
+ServiceVoxel is the romanisation of 体元 — *the smallest indivisible unit of a
+service body*. It has nothing to do with 体素 (voxel) in computer graphics or
+volume rendering. In this discussion, ServiceVoxel refers to a fact-level
+service unit, not a 3D volume element.
+
+In engineering terms, what we are describing is a deterministic **Fact Gate /
+Evidence Eligibility Layer**: a check that sits between a Worker's report and
+that report becoming an externally asserted fact.
+
 ## Invitation
 
 We published the full criteria, the frozen hashes, the nine real responses, and a zero-dependency verification script here:
