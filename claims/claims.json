@@ -1,32 +1,33 @@
 {
   "_doc": "声明台账。每一条 = 一个对外断言。判定由 claim_gate.py 独立执行，不由产出方自评。修改本文件即修改断言，需重新冻结。",
   "_rule": "未被本台账登记的文件，不得在任何场合被描述为「已完成 / 已核验 / 已落盘」。",
-  "frozen_at": "2026-11-01T23:45:00+08:00",
+  "frozen_at": "2026-11-02T01:10:00+08:00",
   "claims": [
     {
       "path": "docs/integration-proposal.md",
       "expect": {
-        "bytes": 9540,
+        "bytes": 10132,
         "min_bytes": 3000,
-        "sha256": "cedbdcfd3a3a8dd5381ffff40d4a38dfe8690e424a3c88cda6c93d62734f8289",
+        "sha256": "9858b2791a2af993656e4ef236c07cc8e59e5f44e65c126060cd7b3f0e3fbc62",
         "contains": [
-          "Effects queue",
+          "outbox",
           "EvidenceRef",
           "Watchdog",
           "Not integrated"
         ]
       },
-      "_note": "英文版，作为面向 dsh-superagent-prototype 的 Discussion 正文。"
+      "_note": "英文版，Discussion 正文。2026-11-02 术语修正：撤回 Effects queue，改述为 outbox + 持久化队列（二手转述支撑，仍待源码确认）。"
     },
     {
       "path": "docs/integration-proposal.zh.md",
       "expect": {
-        "bytes": 8765,
+        "bytes": 9275,
         "min_bytes": 3000,
-        "sha256": "04116cf396eecd30f800ca4a2c2255e6ecf1ee71718897c349fb81b4541c9f9f",
+        "sha256": "366aee8b1a391e334ad2d8e141312716d969a4e5d23e8fda8c7335435f941620",
         "contains": [
           "未集成",
-          "闸门"
+          "闸门",
+          "outbox"
         ]
       },
       "_note": "中文对照，首部标注以英文为准。"
@@ -100,6 +101,50 @@
         ]
       },
       "_note": "Discussion 完整正文（含术语注）。"
+    },
+    {
+      "path": "/data/workspace/6_评述与台账/前沿扫描_20261102.md",
+      "expect": {
+        "bytes": 8207,
+        "min_bytes": 2000,
+        "sha256": "dd0fb59bc48e40b0a77628c7bf8c736b1be767013b50cd88eb9705c963b7bb4d",
+        "contains": [
+          "outbox",
+          "Evidence Plane",
+          "ProvenanceGuard",
+          "行为可追溯率"
+        ]
+      },
+      "_note": "2026-11-02 前沿扫描。含四项发现，其中 outbox 一项直接修正了接入方案的前提。"
+    },
+    {
+      "path": "/data/workspace/6_评述与台账/体元_任务单元_EvidencePlane_边界辨析_草稿.md",
+      "expect": {
+        "bytes": 6298,
+        "min_bytes": 2000,
+        "sha256": "ee6feae3237e3a760f39d08b80ec477254be3588ed21fbf3f3532ba8469fac22",
+        "contains": [
+          "时序",
+          "fail-closed",
+          "完整任务",
+          "Evidence Plane"
+        ]
+      },
+      "_note": "草稿：不投稿、不并入 P4 正文。仅做边界论证，待 P1 反馈后定稿。"
+    },
+    {
+      "path": "/data/workspace/5_实证与试算/L1-SILENCE-001/github/docs/discussion-correction-01.md",
+      "expect": {
+        "bytes": 2395,
+        "min_bytes": 1500,
+        "sha256": "984292d842406e855083b5a35c888738ac85cdd8be7f2fa44416e82c44ca310f",
+        "contains": [
+          "outbox",
+          "do not edit",
+          "second-hand"
+        ]
+      },
+      "_note": "Discussion #1 的公开更正评论。已发原文不改，以追加评论更正。"
     }
   ]
 }
