@@ -2,6 +2,9 @@
 
 体元协议（ServiceVoxel）L1 碰撞测试的**可复现证据包**。
 
+> **命名澄清：** 体元 ≠ 体素。英文名虽含 "Voxel"，但与计算机图形学、体渲染无关。
+> 体＝业务体，元＝最小不可再分单元。详见 [`docs/terminology.zh.md`](docs/terminology.zh.md)。
+
 不是框架，不是 SDK。这里只放一件事的证据：
 
 > 模型结论，什么时候有资格成为系统承认的事实？
@@ -110,3 +113,19 @@ python3 judge_ten.py
 - [ ] L1-PAYMENT-TIMEOUT-001（支付超时误判）
 - [ ] L1-OBJECT-MISMATCH-001（环境对象错配）
 - [ ] L1-CODING-EVIDENCE-GAP-001（编码代理证据缺口，独立 Mock Demo）
+
+---
+
+## 产出方幻觉登记
+
+本项目主张"一个结论凭什么成为事实"。这个问题先问我们自己。
+
+`claims/产出方幻觉登记.md` 公开登记了本仓库产出过程中的虚构与错误，
+包括：**曾声称已写入 `docs/` 并给出精确字节数，而该目录当时根本不存在**。
+
+`claims/claim_gate.py` 是为此安装的闸门：任何"已完成 / 已核验 / N 字节"类断言，
+必须先写进 `claims.json`，由脚本独立判定。已通过负向测试（注入假声明→被拦截→退出码 1）。
+
+```bash
+cd claims && python3 claim_gate.py --strict
+```
