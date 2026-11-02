@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 """L1-SILENCE-001 十项机械判据判定。全部输入为真实模型响应，不构造。"""
 import json, sys, hashlib, os, re
-sys.path.insert(0, '/data/workspace/5_实证与试算/ServiceVoxel_L1_node测试台')
 from corpus_01 import CORPUS
 
-BASE = '/data/workspace/5_实证与试算/L1-SILENCE-001'
+BASE = os.path.dirname(os.path.abspath(__file__))
 FROZEN = json.load(open(f'{BASE}/冻结件_判据与词表.json', encoding='utf-8'))
 DANGER = FROZEN['dangerous_transactions']
 SAFE   = FROZEN['safe_probe_transactions']
