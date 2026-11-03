@@ -1,0 +1,86 @@
+# 验收状态 / Acceptance Status
+# 体元协议 L1-SILENCE-001 最小复现包
+# 本文件随包分发，任何状态晋升都必须由独立第三方填写，开发者不得自行修改
+
+package: L1-SILENCE-001_minrepro_v2.0.zip
+rc: battle-1-v2.0-rc1
+
+# ---------------------------------------------------------------
+# 开发者环境自测哈希（仅供第三方比对，不构成验收依据）
+# 比对不符时先查换行符：CRLF 与 LF 字节不同但逻辑等价，
+# 以「能否跑出 TRUE 9」为准，不以字节全球一致为准
+# ---------------------------------------------------------------
+developer_self_test_hashes_sha256:
+  judge_ten_v2.py: ede2b0350a097febe60ea0cf08c2fe3c849b2fb7017237ca63fc67c077ef76ab
+  corpus_01.py: 0ca96ac1d5b2dee2499aba658624d4c4996dae971edafe704ac8216d4db57775
+  冻结件_判据与词表.json: 1c89a9a9dad7f970abb48899941738893ce5ea2d8a669d0bf6825c0e5f9e8c14
+  体元协议_L1安全性拦截报告_v1.1.md: 9036e1b1b45700addff0d075faa83c619fc09e48c42a5b7aa5a4ab467eb3f99b
+  # 变更记录（封版前最后一次修订）：
+  #   corpus_01.py 顶部移除 v2.1 / v2.2 版本号残留，改为「当前迭代逻辑」表述，
+  #   并保留「其余 12 条不在本包内、无从复算」的注记。
+  #   corpus_01.py 为运行依赖，故哈希随之更新；
+  #   judge_ten_v2.py、冻结件、报告 v1.1 本轮未改动，哈希不变。
+
+# 四个文件全部为运行必需依赖，缺任一则脚本报错或 #10 翻 FALSE。
+# 特别注意：报告文件是 #10 的校验对象，若被篡改会直接改变 #10 结果，
+# 因此必须与代码文件同等对待、一并核对。四个哈希都要核。
+
+# ---------------------------------------------------------------
+# 当前状态（复核前）— 开发者环境自测不构成独立复跑
+# ---------------------------------------------------------------
+current_status:
+  release_candidate: battle-1-v2.0-rc1
+  automated_checks: PENDING
+  manual_review: PENDING
+  independent_rerun: PENDING
+  hash_verification: PENDING
+  report_traceability: PENDING
+  production_readiness: BLOCKED
+
+# ---------------------------------------------------------------
+# 冻结条件（复核后）— 六项全 PASS 方可晋升
+# ---------------------------------------------------------------
+freeze_target:
+  release: battle-1-v2.0
+  automated_checks: PASS
+  manual_review: PASS
+  independent_rerun: PASS
+  hash_verification: PASS
+  report_traceability: PASS
+  baseline_status: FROZEN
+  # 注意：即使全部冻结，production_readiness 仍为 BLOCKED
+  production_readiness: BLOCKED
+
+# ---------------------------------------------------------------
+# 报告字段规范 — 严格区分「预期」与「事实」
+# ---------------------------------------------------------------
+reporting_convention:
+  before_rerun:
+    wording: "自动机械判据：9项，预期通过 9 项，待运行确认"
+    forbid: "禁止写『通过 9 项』"
+  after_rerun:
+    wording: "自动机械判据：9项，通过 9 项，失败 0 项（需附运行日志与哈希）"
+    manual_item: "#2 需独立人工审查结论 PASS 后方可计入，不得与机械判据混算；9 项机械全过 ≠ 全过"
+    forbid: "禁止以『9 项全过』表述整体通过，必须同时声明 #2 的独立审查结论"
+
+# ---------------------------------------------------------------
+# 人工审查项（#2）硬性准入 — 禁止开发者自审
+# ---------------------------------------------------------------
+manual_review_requirement:
+  item: "2 错误效力不申请"
+  admission:
+    - 审查人身份及时间有记录
+    - 审查标准预先固定
+    - 结论与理由可追溯
+    - 绝对不允许开发者自行审查
+  reviewer: null      # 由第三方填写
+  reviewed_at: null   # 由第三方填写
+  conclusion: null    # PASS / FAIL / INSUFFICIENT
+  rationale: null     # 由第三方填写
+
+# ---------------------------------------------------------------
+# 能力对照图表述 — 按阶段更新，不得提前使用复核后措辞
+# ---------------------------------------------------------------
+capability_wording:
+  before_rerun: "已形成 L1 冻结微型语料候选回归包，待独立复核。"
+  after_rerun: "已完成 L1 冻结微型语料回归验证；仅证明冻结环境中的确定性行为，不代表外部有效性、因果效果或生产适用性。"

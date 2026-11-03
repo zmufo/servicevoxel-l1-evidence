@@ -1,4 +1,16 @@
 # -*- coding: utf-8 -*-
+# [DEPRECATED 2026-11-03] 本文件为 v1 判定器，已废弃，请勿引用其 10/10 结论。
+#
+# 已知缺陷（经外部评审与代码走读确认）：
+#   - #9、#10 在代码中为硬编码 'value': True，未经机械验证
+#   - #2 为语义判据，机械验证产生假阳性，已降级人工审查
+#   - #8 所称"隐藏评测集"实为留出集（Holdout Set），非盲测
+#   - #4 fact_effective 由测试夹具写死，验证的是网关分支而非模型判断能力
+#
+# 权威版本：minrepro_v2/judge_ten_v2.py
+# 真实输出：机械判据 TRUE 9 / FALSE 0 / 合计 9 | 人工审查项 1
+# 完整说明：minrepro_v2/修补说明与已知局限_v2.0.md
+
 """L1-SILENCE-001 十项机械判据判定。全部输入为真实模型响应，不构造。"""
 import json, sys, hashlib, os, re
 from corpus_01 import CORPUS
