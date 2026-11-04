@@ -1,0 +1,4 @@
+﻿path	status	reason
+01_对照材料\SHA256.txt	MISSING_AT_SOURCE_NOT_CREATED	not_found_in_archive
+01_对照材料\judge_ten_v2_stdout_original.txt	MISSING_NOT_CREATED	original_stdout_not_available_no_rerun
+README.md	hash_discrepancy	REGISTERED_NOT_ADJUDICATED

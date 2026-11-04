@@ -1,0 +1,19 @@
+﻿# L2 外部复核回执模板 v1.0（外部复核人填写，发布方不预填）
+
+```yaml
+review_receipt:
+  package_version: v1.0
+  reviewer: NOT_PARTICIPATED_IN_REVISION
+  reviewer_conflict_of_interest: null
+  received_at: null
+  layer_A: PENDING
+  layer_A_detail: null
+  layer_B: NOT_COVERED
+  hash_discrepancy_ruling: PENDING
+  sha_mismatch_review: NONE_OBSERVED
+  independent_review: PENDING
+  approval: PENDING
+  baseline_record_corrected: false
+```
+
+`baseline_record_corrected` 由回执决定，不由发布方预设。

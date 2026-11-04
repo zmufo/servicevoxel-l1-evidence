@@ -1,0 +1,16 @@
+﻿归档总整理 v1.5  EXECUTE  2026-11-04 11:19:50
+TOTAL_ROWS = 48
+ALREADY_PREFIXED_SKIP = 1
+DIR_KEPT_INTACT = 1
+KEEP_AT_ROOT = 2
+MOVED_AND_PREFIXED = 1
+MOVED_SUPERSEDED = 5
+PREFIXED = 33
+SKIP_PREFIX_02_EXEMPT = 4
+SKIPPED_SELF = 1
+
+产物（均在根目录）:
+  归档总整理_映射_v1.5.csv / 归档编号索引_v1.5.csv / 归档位置索引_v1.5.md / 归档总整理_结果_v1.5.txt
+
+说明: 改名只改路径不改内容；改名前 SHA256 与改名后 SHA256 逐行对照，不一致标 SHA_MISMATCH_REVIEW。
+说明: 全量带编号清单以 归档编号索引_v1.5.csv 为准（D 盘实测）；本脚本内嵌表为已知代表项，不冒充全量。
